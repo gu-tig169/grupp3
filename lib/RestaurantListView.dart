@@ -1,28 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'model.dart';
+import 'RestaurantList.dart';
+
 class RestaurantListView extends StatelessWidget {
+  final restaurantList =
+      List<Restaurant>.generate(100, (i) => Restaurant(name: "Restaurant $i"));
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('resultat'),
       ),
-      body: ListView(
-        children: <Widget>[
-          Container(
-            height: 50,
-            child: Center(child: Text('ListItem #1')),
-          ),
-          Container(
-            height: 50,
-            child: Center(child: Text('ListItem #2')),
-          ),
-          Container(
-            height: 50,
-            child: Center(child: Text('ListItem #3')),
-          ),
-        ],
-      ),
+      body: RestaurantList(restaurantList),
     );
   }
 }
