@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 import 'model.dart';
 
@@ -15,7 +16,6 @@ class RestaurantList extends StatelessWidget {
         //return ListTile(
         //leading: Text('${restaurants[index].name}'),
         return Container(
-          height: 150,
           child: Card(
             child: new InkWell(
               onTap: () {
@@ -28,6 +28,29 @@ class RestaurantList extends StatelessWidget {
                     leading: Icon(Icons.restaurant),
                     title: Text('${restaurants[index].name}'),
                     subtitle: Text('${restaurants[index].address}'),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      RatingBarIndicator(
+                        rating: restaurants[index].priceLevel,
+                        itemBuilder: (context, index) => Icon(
+                          Icons.attach_money,
+                          color: Colors.black,
+                        ),
+                        itemCount: 4,
+                        direction: Axis.horizontal,
+                      ),
+                      RatingBarIndicator(
+                        rating: restaurants[index].rating,
+                        itemBuilder: (context, index) => Icon(
+                          Icons.star,
+                          color: Colors.amber,
+                        ),
+                        itemCount: 5,
+                        direction: Axis.horizontal,
+                      ),
+                    ],
                   ),
                 ],
               ),
