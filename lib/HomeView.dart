@@ -1,69 +1,61 @@
 import 'package:flutter/material.dart';
 
 class HomeView extends StatelessWidget {
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Home'),
+        title: Text('Hitta Restaurang'),
         centerTitle: true,
         backgroundColor: Colors.blue,
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Container(height: 5),
-            _ratingInputField(),
-            _mapInputField(),
-            _textInputField(),
-            Container(height: 50),
-          ],
-        ),
-      ),
+          child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: <Widget>[
+          Container(
+            height: 50,
+            width: 200,
+            child: FlatButton(
+                color: Colors.blue,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10)),
+                padding: EdgeInsets.only(left: 50, right: 50),
+                onPressed: () {},
+                child: Text(
+                  'Sök via karta',
+                  style: TextStyle(fontSize: 14, color: Colors.white),
+                )),
+          ),
+          Container(
+            height: 50,
+            width: 200,
+            child: FlatButton(
+                color: Colors.blue,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10)),
+                onPressed: () {},
+                padding: EdgeInsets.only(left: 50, right: 50),
+                child: Text(
+                  'Sök via text',
+                  style: TextStyle(fontSize: 14, color: Colors.white),
+                )),
+          ),
+          Container(
+            height: 50,
+            width: 200,
+            child: FlatButton(
+                color: Colors.blue,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10)),
+                padding: EdgeInsets.only(left: 50, right: 50),
+                onPressed: () {},
+                child: Text(
+                  'Sök bland dina favoriter',
+                  style: TextStyle(fontSize: 14, color: Colors.white),
+                )),
+          )
+        ],
+      )),
     );
   }
-
-  Widget _ratingInputField() {
-    return Container(
-      padding: EdgeInsets.all(10.0),
-      margin: EdgeInsets.only(left: 16, right: 16),
-      child: TextField(
-        autocorrect: true,
-        style: TextStyle(
-          fontSize: 18.0,
-        ),
-        decoration: InputDecoration(hintText: 'Search by rating..'),
-      ),
-    );
-  }
-}
-
-Widget _mapInputField() {
-  return Container(
-    padding: EdgeInsets.all(10.0),
-    margin: EdgeInsets.only(left: 16, right: 16),
-    child: TextField(
-      autocorrect: true,
-      style: TextStyle(
-        fontSize: 18.0,
-      ),
-      decoration: InputDecoration(hintText: 'Search on map..'),
-    ),
-  );
-}
-
-Widget _textInputField() {
-  return Container(
-    padding: EdgeInsets.all(10.0),
-    margin: EdgeInsets.only(left: 16, right: 16),
-    child: TextField(
-      autocorrect: true,
-      style: TextStyle(
-        fontSize: 18.0,
-      ),
-      decoration: InputDecoration(hintText: 'Search by text..'),
-    ),
-  );
 }
