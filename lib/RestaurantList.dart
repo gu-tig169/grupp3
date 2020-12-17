@@ -13,8 +13,6 @@ class RestaurantList extends StatelessWidget {
     return ListView.builder(
       itemCount: restaurants.length,
       itemBuilder: (context, index) {
-        //return ListTile(
-        //leading: Text('${restaurants[index].name}'),
         return Container(
           child: Card(
             child: new InkWell(
@@ -62,7 +60,6 @@ class RestaurantList extends StatelessWidget {
             ),
           ),
         );
-        //);
       },
     );
   }
