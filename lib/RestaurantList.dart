@@ -28,6 +28,9 @@ class RestaurantList extends StatelessWidget {
                       leading: Icon(Icons.restaurant),
                       title: Text('${restaurants[index].name}'),
                       subtitle: Text('${restaurants[index].address}'),
+                      trailing: IconButton(icon: Icon( Icons.star),onPressed:() {
+
+                      },),
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
