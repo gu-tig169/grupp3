@@ -6,10 +6,10 @@ class Restaurant {
 
   bool openNow;
 
-  int rating;
+  double rating;
   int userRatingsTotal;
 
-  int priceLevel;
+  double priceLevel;
 
   Restaurant({
     @required this.name,
