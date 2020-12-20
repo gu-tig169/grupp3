@@ -1,15 +1,26 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<<<<<<< HEAD
     package="com.example.restaurant_finder">
+=======
+    package="com.example.grupp3">
+>>>>>>> 8e9dc9bb61786d9ad99ffd77bd2a5d091172ddd6
     <!-- io.flutter.app.FlutterApplication is an android.app.Application that
          calls FlutterMain.startInitialization(this); in its onCreate method.
          In most cases you can leave this as-is, but you if you want to provide
          additional functionality it is fine to subclass or reimplement
          FlutterApplication and put your custom class here. -->
+<<<<<<< HEAD
     <application	
         android:name="io.flutter.app.FlutterApplication"
         android:label="restaurant_finder"
         android:icon="@mipmap/ic_launcher">
 <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyA2KWPNbD48wwqc9HAuyr9B90dviKoFMbs"/>		
+=======
+    <application
+        android:name="io.flutter.app.FlutterApplication"
+        android:label="grupp3"
+        android:icon="@mipmap/ic_launcher">
+>>>>>>> 8e9dc9bb61786d9ad99ffd77bd2a5d091172ddd6
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
