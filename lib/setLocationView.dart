@@ -30,7 +30,6 @@ class SetLocationViewState extends State<SetLocationView> {
       body: Stack(
         children: <Widget>[
           GoogleMap(
-              compassEnabled:true,
               mapType: MapType.normal,
               initialCameraPosition: _lindholmen,
               onMapCreated: (GoogleMapController controller) {
