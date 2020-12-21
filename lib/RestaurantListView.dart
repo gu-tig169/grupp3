@@ -4,7 +4,14 @@ import 'package:flutter/material.dart';
 import 'model.dart';
 import 'RestaurantList.dart';
 
-class RestaurantListView extends StatelessWidget {
+class RestaurantListView extends StatefulWidget {
+  RestaurantListView({Key key}) : super(key: key);
+
+  @override
+  _RestaurantListViewState createState() => _RestaurantListViewState();
+}
+
+class _RestaurantListViewState extends State<RestaurantListView> {
   final restaurantList = List<Restaurant>.generate(
     100,
     (i) => Restaurant(
@@ -14,14 +21,29 @@ class RestaurantListView extends StatelessWidget {
       priceLevel: (100 - i) / 25,
     ),
   );
+
+  bool _showFilter = false;
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('resultat'),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.filter_list),
+            onPressed: () {
+              setState(() {
+                _showFilter = !_showFilter;
+              });
+            },
+          ),
+        ],
       ),
       body: Column(
         children: [
-          FilterWidget(),
+          Visibility(
+            child: FilterWidget(),
+            visible: _showFilter,
+          ),
           Expanded(
             child: RestaurantList(restaurantList),
           ),
