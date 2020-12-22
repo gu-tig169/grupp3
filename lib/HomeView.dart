@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:grupp3/FavouriteView.dart';
+import 'package:grupp3/TextView.dart';
+import 'setLocationView.dart';
 
 class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
@@ -44,9 +47,9 @@ class HomeView extends StatelessWidget {
                     ]),
               ),
               body: TabBarView(children: [
-                Icon(Icons.location_city),
-                Icon(Icons.search),
-                Icon(Icons.favorite),
+                SetLocationView(),
+                TextView(),
+                FavouriteView(),
               ]),
             )));
   }

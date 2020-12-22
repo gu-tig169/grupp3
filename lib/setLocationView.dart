@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+import 'RestaurantListView.dart';
+
 class SetLocationView extends StatefulWidget {
   @override
   State<SetLocationView> createState() => SetLocationViewState();
@@ -24,7 +26,9 @@ class SetLocationViewState extends State<SetLocationView> {
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(Icons.keyboard_backspace),
-          onPressed: () {print("click");},
+          onPressed: () {
+            print("click");
+          },
         ),
       ),
       body: Stack(
@@ -53,6 +57,10 @@ class SetLocationViewState extends State<SetLocationView> {
   }
 
   Future<void> _setLocation() async {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => RestaurantListView()),
+    );
     print(currentCameraCoordinates.latitude);
   }
 }

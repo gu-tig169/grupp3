@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:grupp3/RestaurantListView.dart';
 
 class TextView extends StatefulWidget {
   @override
@@ -52,7 +53,12 @@ class TextViewState extends State<TextView> {
         children: [
           RaisedButton.icon(
             color: Colors.grey,
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => RestaurantListView()),
+              );
+            },
             icon: Icon(Icons.add),
             label: Text(
               "Sök",

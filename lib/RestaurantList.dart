@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:grupp3/restaurantInfoView.dart';
 
 import 'model.dart';
 
@@ -18,6 +19,10 @@ class RestaurantList extends StatelessWidget {
             child: new InkWell(
               onTap: () {
                 print("tapped ${restaurants[index].name}");
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => RestaurantInfoView()),
+                );
               },
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -28,9 +33,10 @@ class RestaurantList extends StatelessWidget {
                       leading: Icon(Icons.restaurant),
                       title: Text('${restaurants[index].name}'),
                       subtitle: Text('${restaurants[index].address}'),
-                      trailing: IconButton(icon: Icon( Icons.star),onPressed:() {
-
-                      },),
+                      trailing: IconButton(
+                        icon: Icon(Icons.star),
+                        onPressed: () {},
+                      ),
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,

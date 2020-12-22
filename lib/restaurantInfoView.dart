@@ -13,6 +13,7 @@ class RestaurantInfoView extends StatelessWidget {
           icon: Icon(Icons.keyboard_backspace),
           onPressed: () {
             print("click");
+            Navigator.pop(context);
           },
         ),
       ),
