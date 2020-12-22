@@ -46,11 +46,13 @@ class HomeView extends StatelessWidget {
                       ),
                     ]),
               ),
-              body: TabBarView(children: [
-                SetLocationView(),
-                TextView(),
-                FavouriteView(),
-              ]),
+              body: TabBarView(
+                  physics: NeverScrollableScrollPhysics(),
+                  children: [
+                    SetLocationView(),
+                    TextView(),
+                    FavouriteView(),
+                  ]),
             )));
   }
 }

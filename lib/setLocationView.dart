@@ -23,14 +23,14 @@ class SetLocationViewState extends State<SetLocationView> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(Icons.keyboard_backspace),
-          onPressed: () {
-            print("click");
-          },
-        ),
-      ),
+      // appBar: AppBar(
+      //   leading: IconButton(
+      //     icon: Icon(Icons.keyboard_backspace),
+      //     onPressed: () {
+      //       print("click");
+      //     },
+      //   ),
+      // ),
       body: Stack(
         children: <Widget>[
           GoogleMap(

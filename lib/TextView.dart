@@ -15,10 +15,10 @@ class TextViewState extends State<TextView> {
     BuildContext context,
   ) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.grey,
-        title: Text(''),
-      ),
+      // appBar: AppBar(
+      //   backgroundColor: Colors.grey,
+      //   title: Text(''),
+      // ),
       body: Padding(
         padding: const EdgeInsets.all(50.0),
         child: Column(

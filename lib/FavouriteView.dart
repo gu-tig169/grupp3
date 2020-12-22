@@ -16,9 +16,9 @@ class FavouriteView extends StatelessWidget {
   );
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('resultat'),
-      ),
+      // appBar: AppBar(
+      //   title: Text('resultat'),
+      // ),
       body: RestaurantList(restaurantList),
     );
   }
