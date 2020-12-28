@@ -47,19 +47,19 @@ class TextViewState extends State<TextView> {
 
   Widget _addButton(myController, context) {
     return Container(
-      margin: EdgeInsets.only(left: 110, right: 110, bottom: 80),
+      
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           RaisedButton.icon(
-            color: Colors.grey,
+            color: Colors.blue,
             onPressed: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => RestaurantListView()),
               );
             },
-            icon: Icon(Icons.add),
+            icon: Icon(Icons.search),
             label: Text(
               "Sök",
               style: TextStyle(
