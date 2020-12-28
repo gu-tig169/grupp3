@@ -52,14 +52,14 @@ class TextViewState extends State<TextView> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           RaisedButton.icon(
-            color: Colors.grey,
+            color: Colors.blue,
             onPressed: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => RestaurantListView()),
               );
             },
-            icon: Icon(Icons.add),
+            icon: Icon(Icons.search),
             label: Text(
               "Sök",
               style: TextStyle(
