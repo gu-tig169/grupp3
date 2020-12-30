@@ -11,6 +11,8 @@ class Restaurant {
 
   double priceLevel;
 
+  Coordinates coordinates;
+
   Restaurant({
     @required this.name,
     this.address,
@@ -18,5 +20,13 @@ class Restaurant {
     this.rating,
     this.userRatingsTotal,
     this.priceLevel,
+    this.coordinates,
   });
+}
+
+class Coordinates {
+  double lat;
+  double lng;
+
+  Coordinates({this.lat, this.lng});
 }

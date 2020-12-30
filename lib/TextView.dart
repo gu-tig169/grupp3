@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:grupp3/RestaurantListView.dart';
+import 'package:grupp3/api.dart';
 
 class TextView extends StatefulWidget {
   @override
@@ -47,17 +48,18 @@ class TextViewState extends State<TextView> {
 
   Widget _addButton(myController, context) {
     return Container(
-      
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           RaisedButton.icon(
             color: Colors.blue,
             onPressed: () {
-              Navigator.push(
+              /* Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => RestaurantListView()),
-              );
+              ); */
+              //print(myController.text);
+              Api.getCoordinates(myController.text);
             },
             icon: Icon(Icons.search),
             label: Text(
