@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:grupp3/RestaurantListView.dart';
-import 'package:grupp3/api.dart';
+import 'package:grupp3/model.dart';
+import 'package:provider/provider.dart';
 
 class TextView extends StatefulWidget {
   @override
@@ -11,6 +11,8 @@ class TextView extends StatefulWidget {
 
 class TextViewState extends State<TextView> {
   final myController = TextEditingController();
+  Coordinates c;
+  List<Restaurant> restaurants;
   @override
   Widget build(
     BuildContext context,
@@ -54,12 +56,15 @@ class TextViewState extends State<TextView> {
           RaisedButton.icon(
             color: Colors.blue,
             onPressed: () {
+              //print(myController.text);
+              //getCoordinates(myController.text);
+              //_getRestaurants();
+              Provider.of<MyState>(context, listen: false)
+                  .getCoordinates(myController.text);
               /* Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => RestaurantListView()),
               ); */
-              //print(myController.text);
-              Api.getCoordinates(myController.text);
             },
             icon: Icon(Icons.search),
             label: Text(

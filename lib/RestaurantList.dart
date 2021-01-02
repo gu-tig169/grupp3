@@ -42,7 +42,7 @@ class RestaurantList extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
                         RatingBarIndicator(
-                          rating: restaurants[index].priceLevel,
+                          rating: restaurants[index].priceLevel.toDouble(),
                           itemBuilder: (context, index) => Icon(
                             Icons.attach_money,
                             color: Colors.black,

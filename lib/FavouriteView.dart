@@ -11,7 +11,7 @@ class FavouriteView extends StatelessWidget {
       name: "Restaurant $i",
       address: "Address $i",
       rating: (100 - i) / 20,
-      priceLevel: (100 - i) / 25,
+      priceLevel: i,
     ),
   );
   Widget build(BuildContext context) {

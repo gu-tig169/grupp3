@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'model.dart';
 import 'RestaurantList.dart';
@@ -12,18 +13,10 @@ class RestaurantListView extends StatefulWidget {
 }
 
 class _RestaurantListViewState extends State<RestaurantListView> {
-  final restaurantList = List<Restaurant>.generate(
-    100,
-    (i) => Restaurant(
-      name: "Restaurant $i",
-      address: "Address $i",
-      rating: (100 - i) / 20,
-      priceLevel: (100 - i) / 25,
-    ),
-  );
-
   bool _showFilter = false;
   Widget build(BuildContext context) {
+    List<Restaurant> restaurantList =
+        Provider.of<MyState>(context, listen: false).getRestaurants();
     return Scaffold(
       appBar: AppBar(
         title: Text('resultat'),
