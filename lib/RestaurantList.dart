@@ -42,7 +42,8 @@ class RestaurantList extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
                         RatingBarIndicator(
-                          rating: restaurants[index].priceLevel.toDouble(),
+                          rating:
+                              _convertToDouble(restaurants[index].priceLevel),
                           itemBuilder: (context, index) => Icon(
                             Icons.attach_money,
                             color: Colors.black,
@@ -71,5 +72,13 @@ class RestaurantList extends StatelessWidget {
         );
       },
     );
+  }
+
+  double _convertToDouble(var rating) {
+    if (rating != null) {
+      return rating.toDouble();
+    } else {
+      return 0;
+    }
   }
 }

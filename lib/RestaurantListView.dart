@@ -15,8 +15,8 @@ class RestaurantListView extends StatefulWidget {
 class _RestaurantListViewState extends State<RestaurantListView> {
   bool _showFilter = false;
   Widget build(BuildContext context) {
-    List<Restaurant> restaurantList =
-        Provider.of<MyState>(context, listen: false).getRestaurants();
+    Future<List<Restaurant>> restaurantList =
+        Provider.of<MyState>(context, listen: false).getRestaurantsFromApi();
     return Scaffold(
       appBar: AppBar(
         title: Text('resultat'),
@@ -37,8 +37,35 @@ class _RestaurantListViewState extends State<RestaurantListView> {
             child: FilterWidget(),
             visible: _showFilter,
           ),
-          Expanded(
-            child: RestaurantList(restaurantList),
+          FutureBuilder<List<Restaurant>>(
+            future: restaurantList,
+            builder: (BuildContext context,
+                AsyncSnapshot<List<Restaurant>> snapshot) {
+              if (snapshot.connectionState != ConnectionState.done) {
+                return Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        child: CircularProgressIndicator(),
+                        width: 60,
+                        height: 60,
+                      ),
+                    ],
+                  ),
+                );
+              }
+              if (snapshot.hasData) {
+                return Expanded(
+                  child: RestaurantList(snapshot.data),
+                );
+              }
+              if (snapshot.hasError) {
+                return Text('Error: ${snapshot.error}');
+              }
+              return Text('No data');
+            },
           ),
         ],
       ),

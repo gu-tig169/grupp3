@@ -64,12 +64,13 @@ class MyState extends ChangeNotifier {
 
   void getCoordinates(String text) async {
     _coordinates = await Api.getCoordinates(text);
-    getRestaurantsFromApi();
+    //getRestaurantsFromApi();
   }
 
-  void getRestaurantsFromApi() async {
+  Future<List<Restaurant>> getRestaurantsFromApi() async {
     List<Restaurant> list = await Api.getRestaurants(_coordinates);
     _list = list;
+    return list;
   }
 
   List<Restaurant> getRestaurants() {

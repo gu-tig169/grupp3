@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:grupp3/model.dart';
+import 'package:grupp3/RestaurantListView.dart';
 import 'package:provider/provider.dart';
 
 class TextView extends StatefulWidget {
@@ -61,10 +62,10 @@ class TextViewState extends State<TextView> {
               //_getRestaurants();
               Provider.of<MyState>(context, listen: false)
                   .getCoordinates(myController.text);
-              /* Navigator.push(
+              Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => RestaurantListView()),
-              ); */
+              );
             },
             icon: Icon(Icons.search),
             label: Text(
