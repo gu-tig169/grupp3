@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'DatabaseHandler.dart';
 import 'HomeView.dart';
 import 'model.dart';
 
 void main() {
   var state = MyState();
+  DatabaseHandler.connectToDatabase();
   runApp(
     ChangeNotifierProvider(
       create: (context) => state,

@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'model.dart';
 import 'RestaurantList.dart';
 
-class RestaurantListView extends StatefulWidget {
+class RestaurantListView extends StatefulWidget { // TODO lägga till så man ser vilka restauranger man redan har i favoriter?
   RestaurantListView({Key key}) : super(key: key);
 
   @override

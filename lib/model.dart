@@ -25,6 +25,18 @@ class Restaurant {
     this.coordinates,
   });
 
+  Map<String, dynamic> toMap() {
+    return {
+      'name': name,
+      'adress': address,
+      'rating': rating,
+      'userratingstotal': userRatingsTotal,
+      'pricelevel': priceLevel,
+      'lat': coordinates.lat,
+      'lng': coordinates.lng,
+    };
+  }
+
   factory Restaurant.fromJson(Map<dynamic, dynamic> json) {
     bool open;
     if (json['opening_hours'] == null) {
