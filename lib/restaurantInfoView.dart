@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_static_maps_controller/google_static_maps_controller.dart';
 
+import 'RestaurantList.dart';
 import 'model.dart';
 
 class RestaurantInfoView extends StatelessWidget { // TODO lägga till zomma in/ut knapp?
@@ -57,7 +58,7 @@ class RestaurantInfoView extends StatelessWidget { // TODO lägga till zomma in/
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
                       RatingBarIndicator(
-                        rating: (priceLevel.toDouble()), //TODO fixa bugg där man får error om priceLevel är null.
+                        rating: RestaurantList.convertToDouble(priceLevel),
                         itemBuilder: (context, index) => Icon(
                           Icons.attach_money,
                           color: Colors.black,

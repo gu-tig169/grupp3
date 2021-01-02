@@ -4,7 +4,7 @@ import 'DatabaseHandler.dart';
 import 'HomeView.dart';
 import 'model.dart';
 
-void main() {
+void main() { //TODO fixa enhetligt språk/design
   var state = MyState();
   DatabaseHandler.connectToDatabase();
   runApp(
