@@ -79,6 +79,12 @@ class MyState extends ChangeNotifier {
     //getRestaurantsFromApi();
   }
 
+  void setCoordinates(Coordinates coordinates) {
+    if (coordinates != null) {
+      _coordinates = coordinates;
+    }
+  }
+
   Future<List<Restaurant>> getRestaurantsFromApi() async {
     List<Restaurant> list = await Api.getRestaurants(_coordinates);
     _list = list;
