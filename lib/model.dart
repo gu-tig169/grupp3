@@ -72,6 +72,7 @@ class MyState extends ChangeNotifier {
   List<Restaurant> _list = [];
 
   List<Restaurant> get list => _list;
+
   Coordinates get coordinates => _coordinates;
 
   void getCoordinates(String text) async {

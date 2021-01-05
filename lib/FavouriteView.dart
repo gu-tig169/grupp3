@@ -1,3 +1,4 @@
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -32,7 +33,12 @@ class FavouriteViewState extends State<FavouriteView> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => RestaurantInfoView(restaurant.name, restaurant.address, restaurant.rating, restaurant.priceLevel, restaurant.coordinates)),
+                  builder: (context) => RestaurantInfoView(
+                      restaurant.name,
+                      restaurant.address,
+                      restaurant.rating,
+                      restaurant.priceLevel,
+                      restaurant.coordinates)),
             );
           },
           child: Padding(
@@ -46,10 +52,10 @@ class FavouriteViewState extends State<FavouriteView> {
                   subtitle: Text('${restaurant.address}'),
                   trailing: IconButton(
                     icon: Icon(Icons.star, color: Colors.amber),
-                    onPressed: () {
-                      favouritelist.remove(restaurant);
+                    onPressed: () async {
                       DatabaseHandler.deleteRestaurantFromDatabase(
                           restaurant.name);
+                      await DatabaseHandler.getFavouritelistFromDatabase();
                       setState(() {});
                     },
                   ),
@@ -90,5 +96,16 @@ class FavouriteViewState extends State<FavouriteView> {
 
   static void addToList(Restaurant restaurant) {
     FavouriteViewState.favouritelist.add(restaurant);
+  }
+
+  static bool restaurantIsInList(String name) {
+    String restaurantname = name;
+    bool restaurantexists = false;
+    for (int i = 0; i < favouritelist.length; i++) {
+      if (favouritelist[i].name == restaurantname) {
+        restaurantexists = true;
+      }
+    }
+    return restaurantexists;
   }
 }

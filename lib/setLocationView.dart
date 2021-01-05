@@ -23,14 +23,6 @@ class SetLocationViewState extends State<SetLocationView> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      // appBar: AppBar(
-      //   leading: IconButton(
-      //     icon: Icon(Icons.keyboard_backspace),
-      //     onPressed: () {
-      //       print("click");
-      //     },
-      //   ),
-      // ),
       body: Stack(
         children: <Widget>[
           GoogleMap(
@@ -49,7 +41,7 @@ class SetLocationViewState extends State<SetLocationView> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: _setLocation,
-        label: Text('Set location!'),
+        label: Text('Sök restaurang!'),
         icon: Icon(Icons.adjust, color: Colors.red),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
