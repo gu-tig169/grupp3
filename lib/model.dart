@@ -74,7 +74,7 @@ class MyState extends ChangeNotifier {
   List<Restaurant> get list => _list;
   Coordinates get coordinates => _coordinates;
 
-  void getCoordinates(String text) async {
+  Future<void> getCoordinates(String text) async {
     _coordinates = await Api.getCoordinates(text);
     //getRestaurantsFromApi();
   }
@@ -87,5 +87,13 @@ class MyState extends ChangeNotifier {
 
   List<Restaurant> getRestaurants() {
     return _list;
+  }
+
+  List<Restaurant> getFilteredList(
+      List<Restaurant> list,
+      RangeValues ratingRangeValues,
+      RangeValues priceRangeValues,
+      bool isOpen) {
+    throw new UnimplementedError();
   }
 }

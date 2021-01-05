@@ -56,11 +56,11 @@ class TextViewState extends State<TextView> {
         children: [
           RaisedButton.icon(
             color: Colors.blue,
-            onPressed: () {
+            onPressed: () async {
               //print(myController.text);
               //getCoordinates(myController.text);
               //_getRestaurants();
-              Provider.of<MyState>(context, listen: false)
+              await Provider.of<MyState>(context, listen: false)
                   .getCoordinates(myController.text);
               Navigator.push(
                 context,
