@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -54,7 +53,7 @@ class FavouriteViewState extends State<FavouriteView> {
                     icon: Icon(Icons.star, color: Colors.amber),
                     onPressed: () async {
                       DatabaseHandler.deleteRestaurantFromDatabase(
-                          restaurant.name);
+                          restaurant.name, restaurant.address);
                       await DatabaseHandler.getFavouritelistFromDatabase();
                       setState(() {});
                     },

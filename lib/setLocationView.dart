@@ -15,9 +15,9 @@ class SetLocationViewState extends State<SetLocationView> {
 
   LatLng currentCameraCoordinates;
 
-  static final CameraPosition _lindholmen = CameraPosition(
-    target: LatLng(57.70664641710256, 11.937165422493168),
-    zoom: 14,
+  static final CameraPosition _startpos = CameraPosition(
+    target: LatLng(59.467168594101345, 14.994096712241383),
+    zoom: 5,
   );
 
   @override
@@ -27,7 +27,7 @@ class SetLocationViewState extends State<SetLocationView> {
         children: <Widget>[
           GoogleMap(
               mapType: MapType.normal,
-              initialCameraPosition: _lindholmen,
+              initialCameraPosition: _startpos,
               onMapCreated: (GoogleMapController controller) {
                 _controller.complete(controller);
               },
@@ -53,6 +53,6 @@ class SetLocationViewState extends State<SetLocationView> {
       context,
       MaterialPageRoute(builder: (context) => RestaurantListView()),
     );
-    print(currentCameraCoordinates.latitude);
+    print(currentCameraCoordinates);
   }
 }
