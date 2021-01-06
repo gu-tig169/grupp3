@@ -58,8 +58,11 @@ class _RestaurantListViewState extends State<RestaurantListView> {
                 );
               }
               if (snapshot.hasData) {
+                Provider.of<MyState>(context, listen: false)
+                    .setList(snapshot.data);
                 return Expanded(
-                  child: RestaurantList(snapshot.data),
+                  child: RestaurantList(
+                      Provider.of<MyState>(context, listen: false).getList()),
                 );
               }
               if (snapshot.hasError) {
@@ -100,9 +103,11 @@ class _FilterState extends State<FilterWidget> {
             _ratingFilterValues.end.round().toString(),
           ),
           onChanged: (RangeValues values) {
-            setState(() {
-              _ratingFilterValues = values;
-            });
+            _ratingFilterValues = values;
+            Provider.of<MyState>(context, listen: false).getFilteredList(
+                _ratingFilterValues, _priceFilterValues, _isChecked);
+            print(Provider.of<MyState>(context, listen: false).getList());
+            setState(() {});
           },
         ),
         Text('Price'),
@@ -116,18 +121,20 @@ class _FilterState extends State<FilterWidget> {
             _priceFilterValues.end.round().toString(),
           ),
           onChanged: (RangeValues values) {
-            setState(() {
-              _priceFilterValues = values;
-            });
+            _priceFilterValues = values;
+            Provider.of<MyState>(context, listen: false).getFilteredList(
+                _ratingFilterValues, _priceFilterValues, _isChecked);
+            setState(() {});
           },
         ),
         CheckboxListTile(
           title: const Text('Is Open'),
           value: _isChecked,
           onChanged: (bool value) {
-            setState(() {
-              _isChecked = value;
-            });
+            _isChecked = value;
+            Provider.of<MyState>(context, listen: false).getFilteredList(
+                _ratingFilterValues, _priceFilterValues, _isChecked);
+            setState(() {});
           },
         ),
       ],

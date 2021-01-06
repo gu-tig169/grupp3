@@ -85,21 +85,52 @@ class MyState extends ChangeNotifier {
     }
   }
 
+  List<Restaurant> getList() {
+    return _list;
+  }
+
+  void setList(List<Restaurant> restaurants) {
+    if (restaurants != null) {
+      _list = restaurants;
+    }
+  }
+
   Future<List<Restaurant>> getRestaurantsFromApi() async {
     List<Restaurant> list = await Api.getRestaurants(_coordinates);
     _list = list;
     return list;
   }
 
-  List<Restaurant> getRestaurants() {
-    return _list;
-  }
-
-  List<Restaurant> getFilteredList(
-      List<Restaurant> list,
+  void getFilteredList(
+      /*List<Restaurant> list,*/
       RangeValues ratingRangeValues,
       RangeValues priceRangeValues,
       bool isOpen) {
-    throw new UnimplementedError();
+    List<Restaurant> restaurants = _list;
+    List<Restaurant> filteredList = [];
+    for (int i = 0; i < restaurants.length; i++) {
+      //Om restaurangen är inom rätt betyg och prisklass
+      if (restaurants[i].rating >= ratingRangeValues.start &&
+          restaurants[i].rating <= ratingRangeValues.end) {
+        if (restaurants[i].priceLevel != null) {
+          if (restaurants[i].priceLevel >= priceRangeValues.start &&
+              restaurants[i].priceLevel <= priceRangeValues.end) {
+            //lägg till skit
+            //Om användaren endast vill ha öppna restauranger
+            if (isOpen) {
+              if (restaurants[i].openNow) {
+                filteredList.add(restaurants[i]);
+              }
+              //Returnera både stängda och öppna restauranger
+            } else {
+              filteredList.add(restaurants[i]);
+            }
+          }
+        }
+      }
+    }
+    _list = filteredList;
+    notifyListeners();
+//    throw new UnimplementedError();
   }
 }
