@@ -81,6 +81,7 @@ class FilterWidget extends StatefulWidget {
 }
 
 class _FilterState extends State<FilterWidget> {
+  //TODO fixa så att filter fungerar
   RangeValues _ratingFilterValues = const RangeValues(0, 5);
   RangeValues _priceFilterValues = const RangeValues(0, 4);
   bool _isChecked = false;
