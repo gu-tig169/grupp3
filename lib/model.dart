@@ -70,8 +70,9 @@ class Coordinates {
 class MyState extends ChangeNotifier {
   Coordinates _coordinates = Coordinates();
   List<Restaurant> _list = [];
-
+  List<Restaurant> _filterList = [];
   List<Restaurant> get list => _list;
+  List<Restaurant> get filterList => _filterList;
   Coordinates get coordinates => _coordinates;
 
   Future<void> getCoordinates(String text) async {
@@ -86,18 +87,21 @@ class MyState extends ChangeNotifier {
   }
 
   List<Restaurant> getList() {
+    
     return _list;
   }
 
   void setList(List<Restaurant> restaurants) {
     if (restaurants != null) {
       _list = restaurants;
+      
     }
   }
 
   Future<List<Restaurant>> getRestaurantsFromApi() async {
     List<Restaurant> list = await Api.getRestaurants(_coordinates);
     _list = list;
+    _filterList = list;
     return list;
   }
 

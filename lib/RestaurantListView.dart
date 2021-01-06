@@ -62,7 +62,7 @@ class _RestaurantListViewState extends State<RestaurantListView> {
                     .setList(snapshot.data);
                 return Expanded(
                   child: RestaurantList(
-                      Provider.of<MyState>(context, listen: false).getList()),
+                      Provider.of<MyState>(context, listen: false).filterList),
                 );
               }
               if (snapshot.hasError) {
