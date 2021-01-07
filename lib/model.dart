@@ -70,10 +70,14 @@ class Coordinates {
 class MyState extends ChangeNotifier {
   Coordinates _coordinates = Coordinates();
   List<Restaurant> _list = [];
-
+  List<Restaurant> _filterList = [];
   List<Restaurant> get list => _list;
-
+  List<Restaurant> get filterList => _filterList;
   Coordinates get coordinates => _coordinates;
+
+  RangeValues _ratingRangeValues;
+  RangeValues _priceRangeValues;
+  bool _isOpen;
 
   Future<void> getCoordinates(String text) async {
     _coordinates = await Api.getCoordinates(text);
@@ -86,21 +90,66 @@ class MyState extends ChangeNotifier {
     }
   }
 
+  void setList(List<Restaurant> restaurants) {
+    if (restaurants != null) {
+      _list = restaurants;
+    }
+  }
+
   Future<List<Restaurant>> getRestaurantsFromApi() async {
     List<Restaurant> list = await Api.getRestaurants(_coordinates);
+
+    resetFilterValues();
+
     _list = list;
     return list;
   }
 
-  List<Restaurant> getRestaurants() {
-    return _list;
+  void setFilterValues(RangeValues ratingRangeValues,
+      RangeValues priceRangeValues, bool isOpen) {
+    _ratingRangeValues = ratingRangeValues;
+    _priceRangeValues = priceRangeValues;
+    _isOpen = isOpen;
+
+    _filterList = getFilteredList();
+    notifyListeners();
   }
 
-  List<Restaurant> getFilteredList(
-      List<Restaurant> list,
-      RangeValues ratingRangeValues,
-      RangeValues priceRangeValues,
-      bool isOpen) {
-    throw new UnimplementedError();
+  void resetFilterValues() {
+    _ratingRangeValues = null;
+    _priceRangeValues = null;
+    _isOpen = false;
+  }
+
+  List<Restaurant> getFilteredList() {
+    if (_priceRangeValues != null &&
+        _ratingRangeValues != null &&
+        _isOpen != null) {
+      List<Restaurant> restaurants = _list;
+      List<Restaurant> filteredList = [];
+      for (int i = 0; i < restaurants.length; i++) {
+        //Om restaurangen är inom rätt betyg och prisklass
+        if (restaurants[i].rating >= _ratingRangeValues.start &&
+            restaurants[i].rating <= _ratingRangeValues.end) {
+          if (restaurants[i].priceLevel != null) {
+            if (restaurants[i].priceLevel >= _priceRangeValues.start &&
+                restaurants[i].priceLevel <= _priceRangeValues.end) {
+              //Om användaren endast vill ha öppna restauranger
+              if (_isOpen) {
+                if (restaurants[i].openNow) {
+                  filteredList.add(restaurants[i]);
+                }
+                //Returnera både stängda och öppna restauranger
+              } else {
+                filteredList.add(restaurants[i]);
+              }
+            }
+          }
+        }
+      }
+      return (filteredList);
+    } else {
+      return _list;
+    }
   }
 }

@@ -14,12 +14,19 @@ class RestaurantListView extends StatefulWidget {
 
 class _RestaurantListViewState extends State<RestaurantListView> {
   bool _showFilter = false;
-  Widget build(BuildContext context) {
-    Future<List<Restaurant>> restaurantList =
+  Future<List<Restaurant>> restaurantList;
+
+  void initState() {
+    super.initState();
+    print("getdatafromapi");
+    restaurantList =
         Provider.of<MyState>(context, listen: false).getRestaurantsFromApi();
+  }
+
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('resultat'),
+        title: Text('Resultat'),
         actions: [
           IconButton(
             icon: Icon(Icons.filter_list),
@@ -34,7 +41,17 @@ class _RestaurantListViewState extends State<RestaurantListView> {
       body: Column(
         children: [
           Visibility(
-            child: FilterWidget(),
+            child: Column(
+              children: [
+                FilterWidget(),
+                ElevatedButton(
+                  onPressed: () {
+                    setState(() {});
+                  },
+                  child: Text("Filtrera"),
+                )
+              ],
+            ),
             visible: _showFilter,
           ),
           FutureBuilder<List<Restaurant>>(
@@ -57,8 +74,12 @@ class _RestaurantListViewState extends State<RestaurantListView> {
                 );
               }
               if (snapshot.hasData) {
+                /*  Provider.of<MyState>(context, listen: false)
+                    .setList(snapshot.data); */
                 return Expanded(
-                  child: RestaurantList(snapshot.data),
+                  child: RestaurantList(
+                      Provider.of<MyState>(context, listen: false)
+                          .getFilteredList()),
                 );
               }
               if (snapshot.hasError) {
@@ -81,14 +102,13 @@ class FilterWidget extends StatefulWidget {
 }
 
 class _FilterState extends State<FilterWidget> {
-  //TODO fixa så att filter fungerar
   RangeValues _ratingFilterValues = const RangeValues(0, 5);
   RangeValues _priceFilterValues = const RangeValues(0, 4);
   bool _isChecked = false;
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text('Rating'),
+        Text('Betyg'),
         RangeSlider(
           values: _ratingFilterValues,
           min: 0,
@@ -99,12 +119,13 @@ class _FilterState extends State<FilterWidget> {
             _ratingFilterValues.end.round().toString(),
           ),
           onChanged: (RangeValues values) {
-            setState(() {
-              _ratingFilterValues = values;
-            });
+            _ratingFilterValues = values;
+            Provider.of<MyState>(context, listen: false).setFilterValues(
+                _ratingFilterValues, _priceFilterValues, _isChecked);
+            setState(() {});
           },
         ),
-        Text('Price'),
+        Text('Prisklass'),
         RangeSlider(
           values: _priceFilterValues,
           min: 0,
@@ -115,18 +136,20 @@ class _FilterState extends State<FilterWidget> {
             _priceFilterValues.end.round().toString(),
           ),
           onChanged: (RangeValues values) {
-            setState(() {
-              _priceFilterValues = values;
-            });
+            _priceFilterValues = values;
+            Provider.of<MyState>(context, listen: false).setFilterValues(
+                _ratingFilterValues, _priceFilterValues, _isChecked);
+            setState(() {});
           },
         ),
         CheckboxListTile(
-          title: const Text('Is Open'),
+          title: const Text('Öppet'),
           value: _isChecked,
           onChanged: (bool value) {
-            setState(() {
-              _isChecked = value;
-            });
+            _isChecked = value;
+            Provider.of<MyState>(context, listen: false).setFilterValues(
+                _ratingFilterValues, _priceFilterValues, _isChecked);
+            setState(() {});
           },
         ),
       ],
