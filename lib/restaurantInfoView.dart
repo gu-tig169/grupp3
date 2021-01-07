@@ -2,8 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_static_maps_controller/google_static_maps_controller.dart';
 
-class RestaurantInfoView extends StatelessWidget {
-  static const String restaurantname = 'mcdonalds';
+import 'RestaurantList.dart';
+import 'model.dart';
+
+class RestaurantInfoView extends StatelessWidget { // TODO lägga till zomma in/ut knapp?
+  RestaurantInfoView(this.restaurantname, this.address, this.rating, this.priceLevel, this.coordinates);
+  final String restaurantname;
+  final String address;
+  final double rating;
+  final int priceLevel;
+  final Coordinates coordinates;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -12,7 +20,6 @@ class RestaurantInfoView extends StatelessWidget {
         leading: IconButton(
           icon: Icon(Icons.keyboard_backspace),
           onPressed: () {
-            print("click");
             Navigator.pop(context);
           },
         ),
@@ -30,7 +37,7 @@ class RestaurantInfoView extends StatelessWidget {
                 Marker(
                   color: Colors.red,
                   locations: [
-                    Location(57.70664641710256, 11.937165422493168),
+                    Location(coordinates.lat, coordinates.lng),
                   ],
                 ),
               ],
@@ -45,13 +52,13 @@ class RestaurantInfoView extends StatelessWidget {
                   ListTile(
                     leading: Icon(Icons.restaurant),
                     title: Text('$restaurantname'),
-                    subtitle: Text('$restaurantname'),
+                    subtitle: Text('$address'),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
                       RatingBarIndicator(
-                        rating: 3,
+                        rating: RestaurantList.convertToDouble(priceLevel),
                         itemBuilder: (context, index) => Icon(
                           Icons.attach_money,
                           color: Colors.black,
@@ -61,7 +68,7 @@ class RestaurantInfoView extends StatelessWidget {
                         direction: Axis.horizontal,
                       ),
                       RatingBarIndicator(
-                        rating: 3,
+                        rating: rating,
                         itemBuilder: (context, index) => Icon(
                           Icons.star,
                           color: Colors.amber,

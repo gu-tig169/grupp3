@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:grupp3/restaurantInfoView.dart';
 
+import 'DatabaseHandler.dart';
+import 'FavouriteView.dart';
 import 'model.dart';
 
 class RestaurantList extends StatelessWidget {
@@ -21,7 +23,9 @@ class RestaurantList extends StatelessWidget {
                 print("tapped ${restaurants[index].name}");
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => RestaurantInfoView()),
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          RestaurantInfoView(restaurants[index].name, restaurants[index].address, restaurants[index].rating, restaurants[index].priceLevel, restaurants[index].coordinates)),
                 );
               },
               child: Padding(
@@ -35,14 +39,38 @@ class RestaurantList extends StatelessWidget {
                       subtitle: Text('${restaurants[index].address}'),
                       trailing: IconButton(
                         icon: Icon(Icons.star),
-                        onPressed: () {},
+                        onPressed: () {
+                          FavouriteViewState.addToList(Restaurant(
+                              name: "${restaurants[index].name}",
+                              address: "${restaurants[index].address}",
+                              rating: restaurants[index].rating,
+                              userRatingsTotal:
+                                  restaurants[index].userRatingsTotal,
+                              priceLevel: restaurants[index].priceLevel,
+                              coordinates: Coordinates(
+                                lat: restaurants[index].coordinates.lat,
+                                lng: restaurants[index].coordinates.lng,
+                              )));
+                          DatabaseHandler.insertRestaurant(Restaurant(
+                              name: "${restaurants[index].name}",
+                              address: "${restaurants[index].address}",
+                              rating: restaurants[index].rating,
+                              userRatingsTotal:
+                                  restaurants[index].userRatingsTotal,
+                              priceLevel: restaurants[index].priceLevel,
+                              coordinates: Coordinates(
+                                lat: restaurants[index].coordinates.lat,
+                                lng: restaurants[index].coordinates.lng,
+                              )));
+                        },
                       ),
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
                         RatingBarIndicator(
-                          rating: restaurants[index].priceLevel,
+                          rating:
+                              convertToDouble(restaurants[index].priceLevel),
                           itemBuilder: (context, index) => Icon(
                             Icons.attach_money,
                             color: Colors.black,
@@ -71,5 +99,13 @@ class RestaurantList extends StatelessWidget {
         );
       },
     );
+  }
+
+  static double convertToDouble(var rating) {
+    if (rating != null) {
+      return rating.toDouble();
+    } else {
+      return 0;
+    }
   }
 }

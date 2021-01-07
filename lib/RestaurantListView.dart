@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'model.dart';
 import 'RestaurantList.dart';
 
 class RestaurantListView extends StatefulWidget {
+  // TODO lägga till så man ser vilka restauranger man redan har i favoriter?
   RestaurantListView({Key key}) : super(key: key);
 
   @override
@@ -12,18 +14,10 @@ class RestaurantListView extends StatefulWidget {
 }
 
 class _RestaurantListViewState extends State<RestaurantListView> {
-  final restaurantList = List<Restaurant>.generate(
-    100,
-    (i) => Restaurant(
-      name: "Restaurant $i",
-      address: "Address $i",
-      rating: (100 - i) / 20,
-      priceLevel: (100 - i) / 25,
-    ),
-  );
-
   bool _showFilter = false;
   Widget build(BuildContext context) {
+    Future<List<Restaurant>> restaurantList =
+        Provider.of<MyState>(context, listen: false).getRestaurantsFromApi();
     return Scaffold(
       appBar: AppBar(
         title: Text('resultat'),
@@ -44,8 +38,35 @@ class _RestaurantListViewState extends State<RestaurantListView> {
             child: FilterWidget(),
             visible: _showFilter,
           ),
-          Expanded(
-            child: RestaurantList(restaurantList),
+          FutureBuilder<List<Restaurant>>(
+            future: restaurantList,
+            builder: (BuildContext context,
+                AsyncSnapshot<List<Restaurant>> snapshot) {
+              if (snapshot.connectionState != ConnectionState.done) {
+                return Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        child: CircularProgressIndicator(),
+                        width: 60,
+                        height: 60,
+                      ),
+                    ],
+                  ),
+                );
+              }
+              if (snapshot.hasData) {
+                return Expanded(
+                  child: RestaurantList(snapshot.data),
+                );
+              }
+              if (snapshot.hasError) {
+                return Text('Error: ${snapshot.error}');
+              }
+              return Text('No data');
+            },
           ),
         ],
       ),
@@ -61,6 +82,7 @@ class FilterWidget extends StatefulWidget {
 }
 
 class _FilterState extends State<FilterWidget> {
+  //TODO fixa så att filter fungerar
   RangeValues _ratingFilterValues = const RangeValues(0, 5);
   RangeValues _priceFilterValues = const RangeValues(0, 4);
   bool _isChecked = false;
