@@ -28,7 +28,7 @@ class Restaurant {
   Map<String, dynamic> toMap() {
     return {
       'name': name,
-      'adress': address,
+      'address': address,
       'rating': rating,
       'userratingstotal': userRatingsTotal,
       'pricelevel': priceLevel,

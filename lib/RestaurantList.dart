@@ -7,24 +7,38 @@ import 'DatabaseHandler.dart';
 import 'FavouriteView.dart';
 import 'model.dart';
 
-class RestaurantList extends StatelessWidget {
+class RestaurantList extends StatefulWidget {
   final List<Restaurant> restaurants;
 
   RestaurantList(this.restaurants);
 
+  @override
+  _RestaurantListState createState() => _RestaurantListState();
+
+  static double convertToDouble(var rating) {
+    if (rating != null) {
+      return rating.toDouble();
+    } else {
+      return 0;
+    }
+  }
+}
+
+class _RestaurantListState extends State<RestaurantList> {
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: restaurants.length,
+      itemCount: widget.restaurants.length,
       itemBuilder: (context, index) {
         return Container(
           child: Card(
             child: new InkWell(
               onTap: () {
-                print("tapped ${restaurants[index].name}");
+                print("tapped ${widget.restaurants[index].name}");
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (context) => RestaurantInfoView(
+<<<<<<< HEAD
                           restaurants[index].name,
                           restaurants[index].address,
                           restaurants[index].rating,
@@ -39,42 +53,64 @@ class RestaurantList extends StatelessWidget {
                   children: <Widget>[
                     ListTile(
                       leading: Icon(Icons.restaurant),
-                      title: Text('${restaurants[index].name}'),
-                      subtitle: Text('${restaurants[index].address}'),
+                      title: Text('${widget.restaurants[index].name}'),
+                      subtitle: Text('${widget.restaurants[index].address}'),
                       trailing: IconButton(
                         icon: Icon(Icons.star),
-                        onPressed: () {
-                          FavouriteViewState.addToList(Restaurant(
-                              name: "${restaurants[index].name}",
-                              address: "${restaurants[index].address}",
-                              rating: restaurants[index].rating,
-                              userRatingsTotal:
-                                  restaurants[index].userRatingsTotal,
-                              priceLevel: restaurants[index].priceLevel,
-                              coordinates: Coordinates(
-                                lat: restaurants[index].coordinates.lat,
-                                lng: restaurants[index].coordinates.lng,
-                              )));
-                          DatabaseHandler.insertRestaurant(Restaurant(
-                              name: "${restaurants[index].name}",
-                              address: "${restaurants[index].address}",
-                              rating: restaurants[index].rating,
-                              userRatingsTotal:
-                                  restaurants[index].userRatingsTotal,
-                              priceLevel: restaurants[index].priceLevel,
-                              coordinates: Coordinates(
-                                lat: restaurants[index].coordinates.lat,
-                                lng: restaurants[index].coordinates.lng,
-                              )));
+                        onPressed: () async {
+                          if (!FavouriteViewState.restaurantIsInList(
+                              widget.restaurants[index].name)) {
+                            FavouriteViewState.addToList(Restaurant(
+                                name: "${widget.restaurants[index].name}",
+                                address: "${widget.restaurants[index].address}",
+                                rating: widget.restaurants[index].rating,
+                                userRatingsTotal:
+                                    widget.restaurants[index].userRatingsTotal,
+                                priceLevel:
+                                    widget.restaurants[index].priceLevel,
+                                coordinates: Coordinates(
+                                  lat:
+                                      widget.restaurants[index].coordinates.lat,
+                                  lng:
+                                      widget.restaurants[index].coordinates.lng,
+                                )));
+                            DatabaseHandler.insertRestaurant(Restaurant(
+                                name: "${widget.restaurants[index].name}",
+                                address: "${widget.restaurants[index].address}",
+                                rating: widget.restaurants[index].rating,
+                                userRatingsTotal:
+                                    widget.restaurants[index].userRatingsTotal,
+                                priceLevel:
+                                    widget.restaurants[index].priceLevel,
+                                coordinates: Coordinates(
+                                  lat:
+                                      widget.restaurants[index].coordinates.lat,
+                                  lng:
+                                      widget.restaurants[index].coordinates.lng,
+                                )));
+                            setState(() {});
+                          } else {
+                            DatabaseHandler.deleteRestaurantFromDatabase(
+                                widget.restaurants[index].name,
+                                widget.restaurants[index].address);
+                            await DatabaseHandler
+                                .getFavouritelistFromDatabase();
+                            setState(() {});
+                          }
                         },
+                        color: FavouriteViewState.restaurantIsInList(
+                                    widget.restaurants[index].name) ==
+                                true
+                            ? Colors.amber
+                            : Colors.grey,
                       ),
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
                         RatingBarIndicator(
-                          rating:
-                              convertToDouble(restaurants[index].priceLevel),
+                          rating: RestaurantList.convertToDouble(
+                              widget.restaurants[index].priceLevel),
                           itemBuilder: (context, index) => Icon(
                             Icons.attach_money,
                             color: Colors.black,
@@ -84,7 +120,7 @@ class RestaurantList extends StatelessWidget {
                           direction: Axis.horizontal,
                         ),
                         RatingBarIndicator(
-                          rating: restaurants[index].rating,
+                          rating: widget.restaurants[index].rating,
                           itemBuilder: (context, index) => Icon(
                             Icons.star,
                             color: Colors.amber,
@@ -103,13 +139,5 @@ class RestaurantList extends StatelessWidget {
         );
       },
     );
-  }
-
-  static double convertToDouble(var rating) {
-    if (rating != null) {
-      return rating.toDouble();
-    } else {
-      return 0;
-    }
   }
 }

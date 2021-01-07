@@ -17,27 +17,19 @@ class SetLocationViewState extends State<SetLocationView> {
 
   LatLng currentCameraCoordinates;
 
-  static final CameraPosition _lindholmen = CameraPosition(
-    target: LatLng(57.70664641710256, 11.937165422493168),
-    zoom: 14,
+  static final CameraPosition _startpos = CameraPosition(
+    target: LatLng(59.467168594101345, 14.994096712241383),
+    zoom: 5,
   );
 
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      // appBar: AppBar(
-      //   leading: IconButton(
-      //     icon: Icon(Icons.keyboard_backspace),
-      //     onPressed: () {
-      //       print("click");
-      //     },
-      //   ),
-      // ),
       body: Stack(
         children: <Widget>[
           GoogleMap(
               mapType: MapType.normal,
-              initialCameraPosition: _lindholmen,
+              initialCameraPosition: _startpos,
               onMapCreated: (GoogleMapController controller) {
                 _controller.complete(controller);
               },
@@ -51,7 +43,7 @@ class SetLocationViewState extends State<SetLocationView> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: _setLocation,
-        label: Text('Set location!'),
+        label: Text('Sök restaurang!'),
         icon: Icon(Icons.adjust, color: Colors.red),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -66,6 +58,6 @@ class SetLocationViewState extends State<SetLocationView> {
       context,
       MaterialPageRoute(builder: (context) => RestaurantListView()),
     );
-    print(currentCameraCoordinates.latitude);
+    print(currentCameraCoordinates);
   }
 }
