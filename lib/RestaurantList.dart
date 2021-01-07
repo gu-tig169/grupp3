@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:grupp3/restaurantInfoView.dart';
-import 'package:provider/provider.dart';
 
 import 'DatabaseHandler.dart';
 import 'FavouriteView.dart';
@@ -14,8 +13,7 @@ class RestaurantList extends StatelessWidget {
   RestaurantList(this.restaurants);
 
   Widget build(BuildContext context) {
-    return Consumer<MyState>(builder: (context,state,child)=>
-    ListView.builder(
+    return ListView.builder(
       itemCount: restaurants.length,
       itemBuilder: (context, index) {
         return Container(
@@ -26,8 +24,12 @@ class RestaurantList extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) =>
-                          RestaurantInfoView(restaurants[index].name, restaurants[index].address, restaurants[index].rating, restaurants[index].priceLevel, restaurants[index].coordinates)),
+                      builder: (context) => RestaurantInfoView(
+                          restaurants[index].name,
+                          restaurants[index].address,
+                          restaurants[index].rating,
+                          restaurants[index].priceLevel,
+                          restaurants[index].coordinates)),
                 );
               },
               child: Padding(
@@ -100,7 +102,7 @@ class RestaurantList extends StatelessWidget {
           ),
         );
       },
-    ));
+    );
   }
 
   static double convertToDouble(var rating) {
