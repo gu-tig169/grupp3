@@ -38,7 +38,6 @@ class _RestaurantListState extends State<RestaurantList> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => RestaurantInfoView(
-<<<<<<< HEAD
                           restaurants[index].name,
                           restaurants[index].address,
                           restaurants[index].rating,
