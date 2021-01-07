@@ -5,7 +5,7 @@ import 'package:google_static_maps_controller/google_static_maps_controller.dart
 import 'RestaurantList.dart';
 import 'model.dart';
 
-class RestaurantInfoView extends StatelessWidget { // TODO lägga till zomma in/ut knapp?
+class RestaurantInfoView extends StatelessWidget {
   RestaurantInfoView(this.restaurantname, this.address, this.rating, this.priceLevel, this.coordinates);
   final String restaurantname;
   final String address;

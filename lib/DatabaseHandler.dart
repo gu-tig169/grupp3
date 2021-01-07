@@ -16,7 +16,7 @@ class DatabaseHandler {
       join(await getDatabasesPath(), 'favourites_database.db'),
       onCreate: (db, version) {
         return db.execute(
-          "CREATE TABLE favourites(name TEXT PRIMARYKEY, adress TEXT, rating DOUBLE, userratingstotal INTEGER, pricelevel INTEGER, lat DOUBLE, lng DOUBLE)",
+          "CREATE TABLE favourites(name TEXT PRIMARYKEY, address TEXT PRIMARYKEY, rating DOUBLE, userratingstotal INTEGER, pricelevel INTEGER, lat DOUBLE, lng DOUBLE)",
         );
       },
       version: 1,
@@ -41,7 +41,7 @@ class DatabaseHandler {
       (i) {
         return Restaurant(
             name: maps[i]['name'],
-            address: maps[i]['adress'],
+            address: maps[i]['address'],
             rating: maps[i]['rating'],
             userRatingsTotal: maps[i]['userratingstotal'],
             priceLevel: maps[i]['pricelevel'],
@@ -53,7 +53,9 @@ class DatabaseHandler {
     );
   }
 
-  static Future<void> deleteRestaurantFromDatabase(String name) async {
-    await db.delete('favourites', where: "name = ?", whereArgs: [name]);
+  static Future<void> deleteRestaurantFromDatabase(
+      String name, String address) async {
+    await db.delete('favourites',
+        where: "name = ? AND address = ?", whereArgs: [name, address]);
   }
 }
