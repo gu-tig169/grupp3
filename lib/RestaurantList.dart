@@ -24,8 +24,12 @@ class RestaurantList extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) =>
-                          RestaurantInfoView(restaurants[index].name, restaurants[index].address, restaurants[index].rating, restaurants[index].priceLevel, restaurants[index].coordinates)),
+                      builder: (context) => RestaurantInfoView(
+                          restaurants[index].name,
+                          restaurants[index].address,
+                          restaurants[index].rating,
+                          restaurants[index].priceLevel,
+                          restaurants[index].coordinates)),
                 );
               },
               child: Padding(
