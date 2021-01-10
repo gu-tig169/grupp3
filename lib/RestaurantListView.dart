@@ -13,12 +13,14 @@ class RestaurantListView extends StatefulWidget {
 }
 
 class _RestaurantListViewState extends State<RestaurantListView> {
+  //Bool för att visa/gömma filterfunktionen
   bool _showFilter = false;
+  //Lista där restaurangerna sparas
+  //Får sitt värde i FutureBuilder
   Future<List<Restaurant>> restaurantList;
 
   void initState() {
     super.initState();
-    print("getdatafromapi");
     restaurantList =
         Provider.of<MyState>(context, listen: false).getRestaurantsFromApi();
   }
@@ -28,10 +30,12 @@ class _RestaurantListViewState extends State<RestaurantListView> {
       appBar: AppBar(
         title: Text('Resultat'),
         actions: [
+          //IconButton för att visa/gömma filterfunktionen
           IconButton(
             icon: Icon(Icons.filter_list),
             onPressed: () {
               setState(() {
+                //Ändra bool
                 _showFilter = !_showFilter;
               });
             },
@@ -40,6 +44,7 @@ class _RestaurantListViewState extends State<RestaurantListView> {
       ),
       body: Column(
         children: [
+          //Visar/gömmer filterfunktionen baserat på "visable" variabeln
           Visibility(
             child: Column(
               children: [
@@ -52,12 +57,16 @@ class _RestaurantListViewState extends State<RestaurantListView> {
                 )
               ],
             ),
+            //Sätt "visable" till bool variablen som deklareras i början av klassen
             visible: _showFilter,
           ),
+          //FutureBuilder väntar på svar från APIet och visar olika saker baserat på om den är klar eller inte
           FutureBuilder<List<Restaurant>>(
+            //List<Restaurant> som returneras sparas i restaurantList
             future: restaurantList,
             builder: (BuildContext context,
                 AsyncSnapshot<List<Restaurant>> snapshot) {
+              //Om vi väntar på data visas en CircularProgressIndicator()
               if (snapshot.connectionState != ConnectionState.done) {
                 return Center(
                   child: Column(
@@ -73,19 +82,20 @@ class _RestaurantListViewState extends State<RestaurantListView> {
                   ),
                 );
               }
+              //Om vi har data visas datan som returneras
               if (snapshot.hasData) {
-                /*  Provider.of<MyState>(context, listen: false)
-                    .setList(snapshot.data); */
                 return Expanded(
                   child: RestaurantList(
                       Provider.of<MyState>(context, listen: false)
                           .getFilteredList()),
                 );
               }
+              //Om vi får ett felmeddelande visas felmeddelandet
               if (snapshot.hasError) {
                 return Text('Error: ${snapshot.error}');
               }
-              return Text('No data');
+              //Om vi inte har någon data visas en text som säger "Ingen data"
+              return Text('Ingen data');
             },
           ),
         ],
@@ -102,6 +112,7 @@ class FilterWidget extends StatefulWidget {
 }
 
 class _FilterState extends State<FilterWidget> {
+  //Variabler för RangeSliders samt en bool för ta fram restauranger som är öppna
   RangeValues _ratingFilterValues = const RangeValues(0, 5);
   RangeValues _priceFilterValues = const RangeValues(0, 4);
   bool _isChecked = false;
@@ -109,6 +120,7 @@ class _FilterState extends State<FilterWidget> {
     return Column(
       children: [
         Text('Betyg'),
+        //RangeSlider från 0 till 5
         RangeSlider(
           values: _ratingFilterValues,
           min: 0,
@@ -120,12 +132,15 @@ class _FilterState extends State<FilterWidget> {
           ),
           onChanged: (RangeValues values) {
             _ratingFilterValues = values;
+            //Ändrar filteringsvärdena som ska användas
+            //setFilterValues ligger i model.dart
             Provider.of<MyState>(context, listen: false).setFilterValues(
                 _ratingFilterValues, _priceFilterValues, _isChecked);
             setState(() {});
           },
         ),
         Text('Prisklass'),
+        //RangeSlider från 0 till 4
         RangeSlider(
           values: _priceFilterValues,
           min: 0,
@@ -137,16 +152,21 @@ class _FilterState extends State<FilterWidget> {
           ),
           onChanged: (RangeValues values) {
             _priceFilterValues = values;
+            //Ändrar filteringsvärdena som ska användas
+            //setFilterValues ligger i model.dart
             Provider.of<MyState>(context, listen: false).setFilterValues(
                 _ratingFilterValues, _priceFilterValues, _isChecked);
             setState(() {});
           },
         ),
+        //Bool för att filtrera mellan öppna restauranger
         CheckboxListTile(
           title: const Text('Öppet'),
           value: _isChecked,
           onChanged: (bool value) {
             _isChecked = value;
+            //Ändrar filteringsvärdena som ska användas
+            //setFilterValues ligger i model.dart
             Provider.of<MyState>(context, listen: false).setFilterValues(
                 _ratingFilterValues, _priceFilterValues, _isChecked);
             setState(() {});
