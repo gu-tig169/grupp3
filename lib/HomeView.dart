@@ -11,12 +11,11 @@ class HomeView extends StatelessWidget {
             length: 3,
             child: Scaffold(
               appBar: AppBar(
-                title: Text('Hitta restaurang'),
+                title: Text('Hitta Restaurang'),
                 centerTitle: true,
                 backgroundColor: Colors.blue,
-                elevation: 0,
                 bottom: TabBar(
-                    unselectedLabelColor: Colors.white,
+                    unselectedLabelColor: Colors.white70,
                     indicatorPadding: EdgeInsets.only(left: 30, right: 30),
                     indicator: ShapeDecoration(
                         color: Colors.blueAccent,
@@ -27,23 +26,23 @@ class HomeView extends StatelessWidget {
                             ))),
                     tabs: [
                       Tab(
-                        child: Align(
-                          alignment: Alignment.center,
-                          child: Text("KARTA"),
-                        ),
-                      ),
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: Text("Karta"),
+                          ),
+                          icon: Icon(Icons.map)),
                       Tab(
-                        child: Align(
-                          alignment: Alignment.center,
-                          child: Text("SÖK"),
-                        ),
-                      ),
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: Text("Sök"),
+                          ),
+                          icon: Icon(Icons.search)),
                       Tab(
-                        child: Align(
-                          alignment: Alignment.center,
-                          child: Text("FAVORITER"),
-                        ),
-                      ),
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: Text("Favoriter"),
+                          ),
+                          icon: Icon(Icons.star))
                     ]),
               ),
               body: TabBarView(
