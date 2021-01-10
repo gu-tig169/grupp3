@@ -19,10 +19,6 @@ class TextViewState extends State<TextView> {
     BuildContext context,
   ) {
     return Scaffold(
-      // appBar: AppBar(
-      //   backgroundColor: Colors.grey,
-      //   title: Text(''),
-      // ),
       body: Padding(
         padding: const EdgeInsets.all(50.0),
         child: Column(
@@ -57,9 +53,6 @@ class TextViewState extends State<TextView> {
           RaisedButton.icon(
             color: Colors.blue,
             onPressed: () async {
-              //print(myController.text);
-              //getCoordinates(myController.text);
-              //_getRestaurants();
               await Provider.of<MyState>(context, listen: false)
                   .getCoordinates(myController.text);
               Navigator.push(
@@ -67,11 +60,11 @@ class TextViewState extends State<TextView> {
                 MaterialPageRoute(builder: (context) => RestaurantListView()),
               );
             },
-            icon: Icon(Icons.search),
+            icon: Icon(Icons.search, color: Colors.white),
             label: Text(
               "Sök",
               style: TextStyle(
-                color: Colors.black,
+                color: Colors.white,
                 fontSize: 18,
               ),
             ),

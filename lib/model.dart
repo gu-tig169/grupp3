@@ -40,7 +40,6 @@ class Restaurant {
   factory Restaurant.fromJson(Map<dynamic, dynamic> json) {
     bool open;
     if (json['opening_hours'] == null) {
-      print('open == null. Setting to false');
       open = false;
     } else {
       open = json['opening_hours']['open_now'];

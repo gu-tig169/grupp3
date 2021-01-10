@@ -97,11 +97,10 @@ class FavouriteViewState extends State<FavouriteView> {
     FavouriteViewState.favouritelist.add(restaurant);
   }
 
-  static bool restaurantIsInList(String name) {
-    String restaurantname = name;
+  static bool restaurantIsInList(String name, String address) {
     bool restaurantexists = false;
     for (int i = 0; i < favouritelist.length; i++) {
-      if (favouritelist[i].name == restaurantname) {
+      if (favouritelist[i].name == name && favouritelist[i].address == address) {
         restaurantexists = true;
       }
     }

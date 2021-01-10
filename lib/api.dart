@@ -25,7 +25,6 @@ class Api {
     var response = await http.get(
         '$API_PLACES_URL?query=restaurant&location=$lat,$lng&radius=1000&key=$API_KEY');
     var results = jsonDecode(response.body);
-    print('resultat: $results');
     var test = results['results'];
 
     return test.map<Restaurant>((data) {
