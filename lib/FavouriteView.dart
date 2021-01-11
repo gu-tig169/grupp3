@@ -93,10 +93,6 @@ class FavouriteViewState extends State<FavouriteView> {
     );
   }
 
-  static void addToList(Restaurant restaurant) {
-    FavouriteViewState.favouritelist.add(restaurant);
-  }
-
   static bool restaurantIsInList(String name, String address) {
     bool restaurantexists = false;
     for (int i = 0; i < favouritelist.length; i++) {

@@ -58,20 +58,6 @@ class _RestaurantListState extends State<RestaurantList> {
                         onPressed: () async {
                           if (!FavouriteViewState.restaurantIsInList(
                               widget.restaurants[index].name, widget.restaurants[index].address)) {
-                            FavouriteViewState.addToList(Restaurant(
-                                name: "${widget.restaurants[index].name}",
-                                address: "${widget.restaurants[index].address}",
-                                rating: widget.restaurants[index].rating,
-                                userRatingsTotal:
-                                    widget.restaurants[index].userRatingsTotal,
-                                priceLevel:
-                                    widget.restaurants[index].priceLevel,
-                                coordinates: Coordinates(
-                                  lat:
-                                      widget.restaurants[index].coordinates.lat,
-                                  lng:
-                                      widget.restaurants[index].coordinates.lng,
-                                )));
                             DatabaseHandler.insertRestaurant(Restaurant(
                                 name: "${widget.restaurants[index].name}",
                                 address: "${widget.restaurants[index].address}",
@@ -86,6 +72,8 @@ class _RestaurantListState extends State<RestaurantList> {
                                   lng:
                                       widget.restaurants[index].coordinates.lng,
                                 )));
+                                await DatabaseHandler
+                                .getFavouritelistFromDatabase();
                             setState(() {});
                           } else {
                             DatabaseHandler.deleteRestaurantFromDatabase(
