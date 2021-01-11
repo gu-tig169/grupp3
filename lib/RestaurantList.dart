@@ -33,7 +33,6 @@ class _RestaurantListState extends State<RestaurantList> {
           child: Card(
             child: new InkWell(
               onTap: () {
-                print("tapped ${widget.restaurants[index].name}");
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -58,7 +57,7 @@ class _RestaurantListState extends State<RestaurantList> {
                         icon: Icon(Icons.star),
                         onPressed: () async {
                           if (!FavouriteViewState.restaurantIsInList(
-                              widget.restaurants[index].name)) {
+                              widget.restaurants[index].name, widget.restaurants[index].address)) {
                             FavouriteViewState.addToList(Restaurant(
                                 name: "${widget.restaurants[index].name}",
                                 address: "${widget.restaurants[index].address}",
@@ -98,7 +97,7 @@ class _RestaurantListState extends State<RestaurantList> {
                           }
                         },
                         color: FavouriteViewState.restaurantIsInList(
-                                    widget.restaurants[index].name) ==
+                                    widget.restaurants[index].name, widget.restaurants[index].address) ==
                                 true
                             ? Colors.amber
                             : Colors.grey,

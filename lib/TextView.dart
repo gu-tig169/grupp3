@@ -58,11 +58,11 @@ class TextViewState extends State<TextView> {
                 MaterialPageRoute(builder: (context) => RestaurantListView()),
               );
             },
-            icon: Icon(Icons.search),
+            icon: Icon(Icons.search, color: Colors.white),
             label: Text(
               "Sök",
               style: TextStyle(
-                color: Colors.black,
+                color: Colors.white,
                 fontSize: 18,
               ),
             ),

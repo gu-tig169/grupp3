@@ -43,7 +43,6 @@ class Restaurant {
     //Om opening_hours inte har returnerats från APIet
     //Detta görs för att undvika felmeddelande om restaurang inte har någon opening_hours variabel
     if (json['opening_hours'] == null) {
-      print('open == null. Setting to false');
       open = false;
     } else {
       open = json['opening_hours']['open_now'];

@@ -15,12 +15,14 @@ class SetLocationView extends StatefulWidget {
 class SetLocationViewState extends State<SetLocationView> {
   Completer<GoogleMapController> _controller = Completer();
 
-  LatLng currentCameraCoordinates;
+  LatLng currentCameraCoordinates = LatLng(59.467168594101345, 14.994096712241383);
 
   static final CameraPosition _startpos = CameraPosition(
     target: LatLng(59.467168594101345, 14.994096712241383),
     zoom: 5,
   );
+
+  
 
   @override
   Widget build(BuildContext context) {
@@ -58,6 +60,5 @@ class SetLocationViewState extends State<SetLocationView> {
       context,
       MaterialPageRoute(builder: (context) => RestaurantListView()),
     );
-    print(currentCameraCoordinates);
   }
 }
