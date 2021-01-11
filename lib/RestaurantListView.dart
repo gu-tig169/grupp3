@@ -21,6 +21,7 @@ class _RestaurantListViewState extends State<RestaurantListView> {
 
   void initState() {
     super.initState();
+    //Hämta restauranger från API
     restaurantList =
         Provider.of<MyState>(context, listen: false).getRestaurantsFromApi();
   }

@@ -37,13 +37,17 @@ class Restaurant {
     };
   }
 
+  //Skapa en restaurang från json-fil
   factory Restaurant.fromJson(Map<dynamic, dynamic> json) {
     bool open;
+    //Om opening_hours inte har returnerats från APIet
+    //Detta görs för att undvika felmeddelande om restaurang inte har någon opening_hours variabel
     if (json['opening_hours'] == null) {
       open = false;
     } else {
       open = json['opening_hours']['open_now'];
     }
+    //Returnera en ny restaurang med värden från APIet
     return Restaurant(
       name: json['name'],
       address: json['formatted_address'],
@@ -69,58 +73,56 @@ class Coordinates {
 class MyState extends ChangeNotifier {
   Coordinates _coordinates = Coordinates();
   List<Restaurant> _list = [];
-  List<Restaurant> _filterList = [];
   List<Restaurant> get list => _list;
-  List<Restaurant> get filterList => _filterList;
   Coordinates get coordinates => _coordinates;
 
   RangeValues _ratingRangeValues;
   RangeValues _priceRangeValues;
   bool _isOpen;
 
-  Future<void> getCoordinates(String text) async {
-    _coordinates = await Api.getCoordinates(text);
-    //getRestaurantsFromApi();
+  //Hämta koordinater från adress
+  Future<void> getCoordinates(String address) async {
+    _coordinates = await Api.getCoordinates(address);
   }
 
+  //Spara koordinater i MyState om koordinater inte behöver hämtas från API
   void setCoordinates(Coordinates coordinates) {
+    //Kolla så att koordinaterna inte sätts till null
     if (coordinates != null) {
       _coordinates = coordinates;
     }
   }
 
-  void setList(List<Restaurant> restaurants) {
-    if (restaurants != null) {
-      _list = restaurants;
-    }
-  }
-
   Future<List<Restaurant>> getRestaurantsFromApi() async {
+    //Hämta restauranger från API
     List<Restaurant> list = await Api.getRestaurants(_coordinates);
 
+    //Återställ filtreringen då ny sökning görs
     resetFilterValues();
 
+    //Sätt interna listan till listan som returneras av APIet
     _list = list;
     return list;
   }
 
+  //Sätt filtreringsvärden till de värden som har valts
   void setFilterValues(RangeValues ratingRangeValues,
       RangeValues priceRangeValues, bool isOpen) {
     _ratingRangeValues = ratingRangeValues;
     _priceRangeValues = priceRangeValues;
     _isOpen = isOpen;
-
-    _filterList = getFilteredList();
-    notifyListeners();
   }
 
+  //Återställ filtreringsvärden
   void resetFilterValues() {
     _ratingRangeValues = null;
     _priceRangeValues = null;
     _isOpen = false;
   }
 
+  //Hämta filtreringslitan
   List<Restaurant> getFilteredList() {
+    //Om filtreringsvärden finns returneras en lista utifrån dessa filtreringsvärden
     if (_priceRangeValues != null &&
         _ratingRangeValues != null &&
         _isOpen != null) {
@@ -147,7 +149,9 @@ class MyState extends ChangeNotifier {
         }
       }
       return (filteredList);
-    } else {
+    }
+    //Om filtreringsvärden inte finns returneras listan som kommer från APIet
+    else {
       return _list;
     }
   }

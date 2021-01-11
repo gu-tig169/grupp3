@@ -12,8 +12,6 @@ class TextView extends StatefulWidget {
 
 class TextViewState extends State<TextView> {
   final myController = TextEditingController();
-  Coordinates c;
-  List<Restaurant> restaurants;
   @override
   Widget build(
     BuildContext context,
@@ -24,7 +22,7 @@ class TextViewState extends State<TextView> {
         child: Column(
           children: [
             _textField(myController),
-            _addButton(myController, context),
+            _searchButton(myController, context),
           ],
         ),
       ),
@@ -45,7 +43,7 @@ class TextViewState extends State<TextView> {
     );
   }
 
-  Widget _addButton(myController, context) {
+  Widget _searchButton(myController, context) {
     return Container(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
