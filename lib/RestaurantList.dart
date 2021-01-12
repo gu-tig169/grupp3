@@ -56,7 +56,7 @@ class _RestaurantListState extends State<RestaurantList> {
                       trailing: IconButton(
                         icon: Icon(Icons.star),
                         onPressed: () async {
-                          if (!FavouriteViewState.restaurantIsInList(
+                          if (!FavouriteViewState.restaurantIsInFavouriteList(
                               widget.restaurants[index].name, widget.restaurants[index].address)) {
                             DatabaseHandler.insertRestaurant(Restaurant(
                                 name: "${widget.restaurants[index].name}",
@@ -84,7 +84,7 @@ class _RestaurantListState extends State<RestaurantList> {
                             setState(() {});
                           }
                         },
-                        color: FavouriteViewState.restaurantIsInList(
+                        color: FavouriteViewState.restaurantIsInFavouriteList(
                                     widget.restaurants[index].name, widget.restaurants[index].address) ==
                                 true
                             ? Colors.amber
